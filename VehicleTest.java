@@ -1,90 +1,117 @@
-// Step 1: Create the Vehicle Interface with common functionalities
+package code;
+
+import java.util.Scanner;
+
 interface Vehicle {
-    void gearChange();   // Method to change gear
-    void speedUp();      // Method to speed up
-    void applyBrakes();  // Method to apply brakes
+    void gearChange(int gear);
+    void speedUp(int increment);
+    void applyBrakes(int decrement);
 }
 
-// Step 2: Bicycle class implementing Vehicle interface
 class Bicycle implements Vehicle {
+    private int speed;
+    private int gear;
 
     @Override
-    public void gearChange() {
-        System.out.println("Bicycle: Gear changed to a new level.");
+    public void gearChange(int gear) {
+        this.gear = gear;
+        System.out.println("Bicycle gear changed to: " + gear);
     }
 
     @Override
-    public void speedUp() {
-        System.out.println("Bicycle: Speeding up by pedaling faster.");
+    public void speedUp(int increment) {
+        speed += increment;
+        System.out.println("Bicycle speed increased to: " + speed);
     }
 
     @Override
-    public void applyBrakes() {
-        System.out.println("Bicycle: Brakes applied to slow down.");
+    public void applyBrakes(int decrement) {
+        speed -= decrement;
+        System.out.println("Bicycle speed decreased to: " + speed);
     }
 }
 
-// Step 3: Bike class implementing Vehicle interface
 class Bike implements Vehicle {
+    private int speed;
+    private int gear;
 
     @Override
-    public void gearChange() {
-        System.out.println("Bike: Gear changed to a new level.");
+    public void gearChange(int gear) {
+        this.gear = gear;
+        System.out.println("Bike gear changed to: " + gear);
     }
 
     @Override
-    public void speedUp() {
-        System.out.println("Bike: Accelerating by twisting the throttle.");
+    public void speedUp(int increment) {
+        speed += increment;
+        System.out.println("Bike speed increased to: " + speed);
     }
 
     @Override
-    public void applyBrakes() {
-        System.out.println("Bike: Brakes applied to stop the bike.");
+    public void applyBrakes(int decrement) {
+        speed -= decrement;
+        System.out.println("Bike speed decreased to: " + speed);
     }
 }
 
-// Step 4: Car class implementing Vehicle interface
 class Car implements Vehicle {
+    private int speed;
+    private int gear;
 
     @Override
-    public void gearChange() {
-        System.out.println("Car: Gear shifted to a different position.");
+    public void gearChange(int gear) {
+        this.gear = gear;
+        System.out.println("Car gear changed to: " + gear);
     }
 
     @Override
-    public void speedUp() {
-        System.out.println("Car: Pressing the accelerator to speed up.");
+    public void speedUp(int increment) {
+        speed += increment;
+        System.out.println("Car speed increased to: " + speed);
     }
 
     @Override
-    public void applyBrakes() {
-        System.out.println("Car: Brakes applied to stop the car.");
+    public void applyBrakes(int decrement) {
+        speed -= decrement;
+        System.out.println("Car speed decreased to: " + speed);
     }
 }
 
-// Step 5: Main class to demonstrate the functionality
 public class VehicleTest {
     public static void main(String[] args) {
-        // Create instances of Bicycle, Bike, and Car
-        Vehicle bicycle = new Bicycle();
-        Vehicle bike = new Bike();
-        Vehicle car = new Car();
+        Scanner scanner = new Scanner(System.in);
+        Vehicle vehicle;
 
-        // Demonstrate the functionalities for each vehicle
-        System.out.println("Bicycle:");
-        bicycle.gearChange();
-        bicycle.speedUp();
-        bicycle.applyBrakes();
+        System.out.println("Choose a vehicle (1: Bicycle, 2: Bike, 3: Car): ");
+        int choice = scanner.nextInt();
 
-        System.out.println("\nBike:");
-        bike.gearChange();
-        bike.speedUp();
-        bike.applyBrakes();
+        switch (choice) {
+            case 1:
+                vehicle = new Bicycle();
+                break;
+            case 2:
+                vehicle = new Bike();
+                break;
+            case 3:
+                vehicle = new Car();
+                break;
+            default:
+                System.out.println("Invalid choice");
+                return;
+        }
 
-        System.out.println("\nCar:");
-        car.gearChange();
-        car.speedUp();
-        car.applyBrakes();
+        System.out.println("Enter gear change: ");
+        int gear = scanner.nextInt();
+        vehicle.gearChange(gear);
+
+        System.out.println("Enter speed increment: ");
+        int increment = scanner.nextInt();
+        vehicle.speedUp(increment);
+
+        System.out.println("Enter speed decrement: ");
+        int decrement = scanner.nextInt();
+        vehicle.applyBrakes(decrement);
+
+        scanner.close();
     }
 }
-

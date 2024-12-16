@@ -1,131 +1,145 @@
+package code;
 import java.util.Scanner;
 
-// Base class Publication
+// Base class
 class Publication {
     protected String title;
     protected double price;
     protected int copies;
 
-    // Constructor to initialize Publication
+    // Constructor
     public Publication(String title, double price, int copies) {
         this.title = title;
         this.price = price;
         this.copies = copies;
     }
 
-    // Method to calculate the total sale (Price * Copies)
-    public void saleCopy() {
-        double totalSale = price * copies;
-        System.out.println("Total sale for " + title + ": $" + totalSale);
+    // Method to sell copies
+    public void saleCopy(int quantity) {
+        if (quantity <= copies) {
+            copies -= quantity;
+            System.out.println(quantity + " copies of " + title + " sold.");
+        } else {
+            System.out.println("Not enough copies available for " + title);
+        }
+    }
+
+    // Method to get total sale
+    public double getTotalSale() {
+        return price * (copies);
+    }
+
+    // Method to display publication details
+    public void displayDetails() {
+        System.out.println("Title: " + title + ", Price: " + price + ", Copies available: " + copies);
     }
 }
 
-// Book class inherits from Publication
+// Book class
 class Book extends Publication {
     private String author;
 
-    // Constructor to initialize Book (including the author)
+    // Constructor
     public Book(String title, double price, int copies, String author) {
         super(title, price, copies);
         this.author = author;
     }
 
-    // Method to order additional copies
-    public void orderCopies(int additionalCopies) {
-        copies += additionalCopies;
-        System.out.println(additionalCopies + " copies of \"" + title + "\" have been ordered.");
+    // Method to order copies
+    public void orderCopies(int quantity) {
+        copies += quantity;
+        System.out.println(quantity + " copies of " + title + " ordered.");
     }
 
-    // Method to display Book details
-    public void displayBookInfo() {
-        System.out.println("Book Title: " + title);
+    @Override
+    public void displayDetails() {
+        super.displayDetails();
         System.out.println("Author: " + author);
-        System.out.println("Price: $" + price);
-        System.out.println("Copies Available: " + copies);
     }
 }
 
-// Magazine class inherits from Publication
+// Magazine class
 class Magazine extends Publication {
     private String currentIssue;
 
-    // Constructor to initialize Magazine (including current issue)
+    // Constructor
     public Magazine(String title, double price, int copies, String currentIssue) {
         super(title, price, copies);
         this.currentIssue = currentIssue;
     }
 
-    // Method to order additional quantity of magazines
-    public void orderQty(int additionalCopies) {
-        copies += additionalCopies;
-        System.out.println(additionalCopies + " copies of \"" + title + "\" (Issue: " + currentIssue + ") have been ordered.");
+    // Method to order quantity
+    public void orderQty(int quantity) {
+        copies += quantity;
+        System.out.println(quantity + " copies of " + title + " ordered.");
     }
 
-    // Method to receive the issue of the magazine
-    public void receiveIssue() {
-        System.out.println("New issue of \"" + title + "\" (Issue: " + currentIssue + ") received.");
+    // Method to receive issue
+    public void receiveIssue(String issue) {
+        currentIssue = issue;
+        System.out.println("Received issue: " + currentIssue + " for " + title);
     }
 
-    // Method to display Magazine details
-    public void displayMagazineInfo() {
-        System.out.println("Magazine Title: " + title);
+    @Override
+    public void displayDetails() {
+        super.displayDetails();
         System.out.println("Current Issue: " + currentIssue);
-        System.out.println("Price: $" + price);
-        System.out.println("Copies Available: " + copies);
     }
 }
 
-// Main class to demonstrate the functionality
+// Main class to demonstrate functionality
 public class PublicationDemo {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        // Create a Book object
-        System.out.println("Enter Book details:");
-        System.out.print("Title: ");
-        String bookTitle = sc.nextLine();
-        System.out.print("Price: $");
-        double bookPrice = sc.nextDouble();
-        System.out.print("Copies Available: ");
-        int bookCopies = sc.nextInt();
-        sc.nextLine();  // consume newline
-        System.out.print("Author: ");
-        String bookAuthor = sc.nextLine();
+        // Input for Book
+        System.out.print("Enter the title of the book: ");
+        String bookTitle = scanner.nextLine();
+        System.out.print("Enter the price of the book: ");
+        double bookPrice = scanner.nextDouble();
+        System.out.print("Enter the number of copies of the book: ");
+        int bookCopies = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+        System.out.print("Enter the author of the book: ");
+        String bookAuthor = scanner.nextLine();
 
-        Book book = new Book(bookTitle, bookPrice, bookCopies, bookAuthor);
+        // Create Book instance
+        Book book1 = new Book(bookTitle, bookPrice, bookCopies, bookAuthor);
 
-        // Create a Magazine object
-        System.out.println("\nEnter Magazine details:");
-        System.out.print("Title: ");
-        String magazineTitle = sc.nextLine();
-        System.out.print("Price: $");
-        double magazinePrice = sc.nextDouble();
-        System.out.print("Copies Available: ");
-        int magazineCopies = sc.nextInt();
-        sc.nextLine();  // consume newline
-        System.out.print("Current Issue: ");
-        String currentIssue = sc.nextLine();
+        // Input for Magazine
+        System.out.print("Enter the title of the magazine: ");
+        String magazineTitle = scanner.nextLine();
+        System.out.print("Enter the price of the magazine: ");
+        double magazinePrice = scanner.nextDouble();
+        System.out.print("Enter the number of copies of the magazine: ");
+        int magazineCopies = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+        System.out.print("Enter the current issue of the magazine: ");
+        String magazineIssue = scanner.nextLine();
 
-        Magazine magazine = new Magazine(magazineTitle, magazinePrice, magazineCopies, currentIssue);
+        // Create Magazine instance
+        Magazine magazine1 = new Magazine(magazineTitle, magazinePrice, magazineCopies, magazineIssue);
 
-        // Perform operations on Book
-        System.out.println("\nBook Info:");
-        book.displayBookInfo();
-        System.out.print("How many additional copies would you like to order for the book? ");
-        int additionalBookCopies = sc.nextInt();
-        book.orderCopies(additionalBookCopies);
-        book.saleCopy();
+        // Display details
+        book1.displayDetails();
+        magazine1.displayDetails();
 
-        // Perform operations on Magazine
-        System.out.println("\nMagazine Info:");
-        magazine.displayMagazineInfo();
-        System.out.print("How many additional copies would you like to order for the magazine? ");
-        int additionalMagazineCopies = sc.nextInt();
-        magazine.orderQty(additionalMagazineCopies);
-        magazine.receiveIssue();
-        magazine.saleCopy();
+        // Order and sell copies of the book
+        System.out.print("Enter the number of copies to order for the book: ");
+        int orderBookQty = scanner.nextInt();
+        book1.orderCopies(orderBookQty);
 
-        sc.close();
+        System.out.print("Enter the number of copies to sell for the book: ");
+        int sellBookQty = scanner.nextInt();
+        book1.saleCopy(sellBookQty);
+
+        // Order and sell copies of the magazine
+        System.out.print("Enter the number of copies to order for the magazine: ");
+        int orderMagazineQty = scanner.nextInt();
+        magazine1.orderQty(orderMagazineQty);
+
+        System.out.print("Enter the number of copies to sell for the magazine: ");
+        int sellMagazineQty = scanner.nextInt();
+        magazine1.saleCopy(sellMagazineQty);
     }
 }
-
